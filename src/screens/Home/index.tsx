@@ -1,8 +1,8 @@
 import { View, ActivityIndicator, FlatList, Text } from 'react-native';
+import { useTheme } from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 import { Header, CharacterCard, ListEmpty, Input } from '@components';
 import { useFetchCharacters } from '@hooks/useFetchCharacters';
-import { useTheme } from 'styled-components/native';
 import * as S from './styles';
 
 export function Home() {
@@ -27,7 +27,7 @@ export function Home() {
     if (!hasMore) {
       return (
         <View style={{ padding: 10 }}>
-          <S.Title>There are no more pages to display</S.Title>
+          <S.Text>There are no more pages to display</S.Text>
         </View>
       );
     }

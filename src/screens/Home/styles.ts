@@ -9,6 +9,6 @@ export const Container = styled(SafeAreaView)`
   padding: 24px;
 `;
 
-export const Title = styled.Text`
+export const Text = styled.Text`
   color: ${({ theme }) => theme.COLORS.WHITE};
 `;

@@ -1,15 +1,14 @@
+import { StatusBar } from 'react-native';
 import { ApolloProvider } from '@apollo/client';
-import client from '@services/client';
 import { ThemeProvider } from 'styled-components/native';
-import theme from './src/theme';
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold,
 } from '@expo-google-fonts/roboto';
-
+import theme from './src/theme';
+import client from '@services/client';
 import { Loading } from '@components';
-import { StatusBar } from 'react-native';
 import { Routes } from '@routes/index';
 
 export default function App() {

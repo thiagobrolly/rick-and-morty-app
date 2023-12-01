@@ -33,7 +33,7 @@ export const TextName = styled.Text`
   `}
 `;
 
-export const Title = styled.Text`
+export const Text = styled.Text`
   ${({ theme }) => css`
     font-size: ${theme.FONT_SIZE.MD}px;
     font-family: ${theme.FONT_FAMILY.REGULAR};

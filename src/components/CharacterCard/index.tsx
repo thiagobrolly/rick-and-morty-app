@@ -20,7 +20,7 @@ export const CharacterCard = memo(({ item, ...rest }: Props) => {
 
       <S.VStack>
         <S.TextName numberOfLines={2}>{item.name}</S.TextName>
-        <S.Title>{item.species}</S.Title>
+        <S.Text>{item.species}</S.Text>
       </S.VStack>
 
       <S.Icon name="chevron-right" />
