@@ -1,5 +1,6 @@
 import { View, ActivityIndicator, FlatList, Text } from 'react-native';
-import { CharacterCard, ListEmpty } from '@components';
+import { useNavigation } from '@react-navigation/native';
+import { Header, CharacterCard, ListEmpty, Input } from '@components';
 import { useFetchCharacters } from '@hooks/useFetchCharacters';
 import { useTheme } from 'styled-components/native';
 import * as S from './styles';
@@ -7,13 +8,20 @@ import * as S from './styles';
 export function Home() {
   const {
     hasMore,
+    handleSearch,
     characters,
     error,
     searchName,
     loadMoreCharacters,
   } = useFetchCharacters();
 
+  const navigation = useNavigation();
+
   const theme = useTheme();
+
+  const handleOpenDetails = (characterId: string) => {
+    navigation.navigate('details', { characterId });
+  };
 
   const renderFooter = () => {
     if (!hasMore) {
@@ -31,6 +39,14 @@ export function Home() {
 
   return (
     <S.Container>
+      <Header />
+
+      <Input
+        placeholder="Search character by name"
+        onChangeText={handleSearch}
+        value={searchName}
+      />
+
       <FlatList
         style={{ marginTop: 20 }}
         data={characters}
@@ -38,6 +54,7 @@ export function Home() {
         renderItem={({ item }) => (
           <CharacterCard
             item={item}
+            onPress={() => handleOpenDetails(item.id)}
           />
         )}
         contentContainerStyle={[

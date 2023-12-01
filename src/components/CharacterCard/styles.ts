@@ -42,7 +42,7 @@ export const Title = styled.Text`
 `;
 
 export const Icon = styled(MaterialIcons).attrs(({ theme }) => ({
-  size: 24,
+  size: 32,
   color: theme.COLORS.GREEN_700,
 }))`
   margin-left: auto;

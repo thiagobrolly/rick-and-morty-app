@@ -1,18 +1,16 @@
-import { StatusBar } from 'react-native';
-import { ThemeProvider } from 'styled-components/native';
 import { ApolloProvider } from '@apollo/client';
+import client from '@services/client';
+import { ThemeProvider } from 'styled-components/native';
+import theme from './src/theme';
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold,
 } from '@expo-google-fonts/roboto';
 
-import client from '@services/client';
-
-import theme from './src/theme';
-
-import { Home } from '@screens/Home';
 import { Loading } from '@components';
+import { StatusBar } from 'react-native';
+import { Routes } from '@routes/index';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -26,8 +24,8 @@ export default function App() {
           translucent
         />
         
-        {fontsLoaded ? <Home /> : <Loading />}
+        {fontsLoaded ? <Routes /> : <Loading />}
       </ThemeProvider>
-      </ApolloProvider>
+    </ApolloProvider>
   );
 }
