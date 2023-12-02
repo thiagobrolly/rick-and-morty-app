@@ -7,8 +7,8 @@ type Props = TouchableOpacityProps & {
   item: CharacterDTO;
 };
 
-export const CharacterCard = memo(({ item, ...rest }: Props) => {
-  return (
+export const CharacterCard = memo(
+  ({ item, ...rest }: Props) => (
     <S.Container {...rest}>
       <S.Image
           source={{
@@ -25,5 +25,9 @@ export const CharacterCard = memo(({ item, ...rest }: Props) => {
 
       <S.Icon name="chevron-right" />
     </S.Container>
-  );
-});
+  ),
+  (prevProps, nextProps) => {
+    // Check if relevant props have changed to avoid unnecessary rendering
+    return prevProps.item.id === nextProps.item.id;
+  }
+);

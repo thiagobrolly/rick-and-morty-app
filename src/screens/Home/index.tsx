@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
 import { View, ActivityIndicator, FlatList, Text } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 import { Header, CharacterCard, ListEmpty, Input } from '@components';
 import { useFetchCharacters } from '@hooks/useFetchCharacters';
+import { CharacterDTO } from '@dtos';
 import * as S from './styles';
 
 export function Home() {
@@ -19,11 +21,21 @@ export function Home() {
 
   const theme = useTheme();
 
-  const handleOpenDetails = (characterId: string) => {
-    navigation.navigate('details', { characterId });
-  };
+  const handleOpenDetails = useCallback(
+    (characterId: string) => {
+      navigation.navigate('details', { characterId });
+    },
+    [navigation],
+  );
 
-  const renderFooter = () => {
+  const renderItem = useCallback(
+    ({ item }: { item: CharacterDTO }) => (
+      <CharacterCard item={item} onPress={() => handleOpenDetails(item.id)} />
+    ),
+    [handleOpenDetails],
+  );
+
+  const renderFooter = useCallback(() => {
     if (!hasMore) {
       return (
         <View style={{ padding: 10 }}>
@@ -33,7 +45,7 @@ export function Home() {
     }
 
     return <ActivityIndicator size={'large'} color={theme.COLORS.GREEN_500} />;
-  };
+  }, [hasMore]);
 
   if (error) return <Text>Error: {error.message}</Text>;
 
@@ -51,12 +63,7 @@ export function Home() {
         style={{ marginTop: 20 }}
         data={characters}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <CharacterCard
-            item={item}
-            onPress={() => handleOpenDetails(item.id)}
-          />
-        )}
+        renderItem={renderItem}
         contentContainerStyle={[
           { paddingBottom: 100 },
           characters.length === 0 && { flex: 1 },
